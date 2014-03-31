@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+	<link rel="stylesheet" type="text/css" href="opentip.css" />
+</head>
+<body>
+	<a href="#" id="tooltip-one">Anchor 1</a>
+	<a href="#" id="tooltip-two">Anchor 2</a>
+	<a href="#" id="step-two-tooltip-one">Anchor 3</a>
+	<div id="instructor"></div>
+	<input type="button" id="nextStep" value="Next Step" />
+	<input type="button" id="nextTip" value="Next Tip" />
+	
+	<script src="jquery-1.9.1.js"></script>
+	<script src="jquery-ui-1.10.1.custom.min.js"></script>
+	<script src="opentip.js"></script>
+	<script src="instructor.js"></script>
+	<script>
+		$(function () {
+			var $tut = $('#instructor');
+			$tut.instructor({
+				steps : [
+					{
+						title: 'Step 1',
+						tips : [
+							{
+								title : 'Tip 1',
+								element : 'tooltip-one',
+								message: 'Click here to do something'
+							},
+							{
+								title: 'Tip 2',
+								element: 'tooltip-two',
+								message: 'Click here to do something different'
+							}
+						],
+						onStart : function ( step ) {
+							$tut.instructor('nextTip');
+						}
+					},
+					{
+						title: 'Step 2',
+						tips : [
+							{
+								title: 'Step 2 Tip 1',
+								element: 'step-two-tooltip-one',
+								message: 'This is a tooltip on the second step of the tutorial'
+							}
+						],
+						onStart : function ( step ) {
+							$tut.instructor('nextTip');
+						}
+					}
+				]
+			});
+
+			$('#nextStep').click(function () {
+				$('#instructor').instructor('nextStep');
+			});
+
+			$('#nextTip').click(function () {
+				$('#instructor').instructor('nextTip');
+			});
+		});
+	</script>
+</body>
